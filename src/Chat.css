@@ -1,0 +1,7 @@
+.chat{
+    flex: 0.70;
+    background-color: aqua;
+}
+.chat_header{
+    display: flex;
+}

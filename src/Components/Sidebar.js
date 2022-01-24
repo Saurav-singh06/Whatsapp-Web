@@ -32,7 +32,7 @@ function Sidebar() {
   </div>
 
   <div className="sb_chats">
-<SidebarChat/>
+<SidebarChat addNewChat/>
 <SidebarChat/>
 <SidebarChat/>
 <SidebarChat/>
