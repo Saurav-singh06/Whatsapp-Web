@@ -2,6 +2,7 @@ import React from 'react';
 import "../Sidebar.css"
 import {Avatar, Icon, IconButton} from "@mui/material"
 import { Chat, DonutLarge, MoreVert, SearchOutlined } from '@mui/icons-material';
+import SidebarChat from './SidebarChat';
 function Sidebar() {
   return(
     <div className='sidebar'>
@@ -31,7 +32,10 @@ function Sidebar() {
   </div>
 
   <div className="sb_chats">
-
+<SidebarChat/>
+<SidebarChat/>
+<SidebarChat/>
+<SidebarChat/>
   </div>
 
 </div>

@@ -45,3 +45,8 @@
     color: gray;
     padding: 10p;
 }
+.sb_chats{
+    flex: 1;
+    background-color: white;
+    overflow: scroll;
+}

@@ -1,0 +1,17 @@
+.sidebar_Chats{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid #f6f6f6;
+}
+.sidebar_Chats:hover{
+    background-color: #ebebeb;
+}
+.sbChat_info{
+    margin-left: 15px;
+}
+.sbChat_info > h4{
+    font-size: 16px;
+    margin-bottom: 8px;
+
+}

@@ -1,4 +1,4 @@
-
+import react from 'react';
 import './App.css';
 import Sidebar from './Components/Sidebar';
 
