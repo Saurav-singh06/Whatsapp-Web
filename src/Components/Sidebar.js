@@ -18,29 +18,20 @@ import { collection, addDoc } from "firebase/firestore";
 function Sidebar() {
   const [rooms, setrooms] = useState([]);
 
-  // useEffect(() => {
-    // db.collection("rooms").onSnapshot((snapshot) =>
-    //   setrooms(
-    //     snapshot.docs.map((doc) => ({
-    //       id: doc.id,
-    //       data: doc.data(),
-    //     }))
-    //   )
-    // );
-
-
     useEffect(() => {
       const db = firebase.firestore();
-      return db.collection('rooms').onSnapshot((snapshot) => {
+      const unsubscribe = db.collection('rooms').onSnapshot((snapshot) => {
       setrooms(
         snapshot.docs.map((doc) => ({
           id: doc.id,
          data: doc.data(),
         }))
       )
-    })
+    });
     
-       
+       return () =>{
+         unsubscribe(); 
+       }
     }, []);
     
 
