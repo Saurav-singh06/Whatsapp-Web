@@ -24,4 +24,9 @@
     background-color: #0a8d48;
     color: white;
     border-radius: 8px;
+
+
+}
+.login_container >button >:hover {
+    color: #000000;
 }
