@@ -13,6 +13,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import "../Chat.css";
 import db from "../firebase";
+import { useStateValue } from "../StateProvider";
+import firebase from 'firebase/compat/app';
 
 function Chat() {
   const [Seed, setSeed] = useState("");
@@ -20,6 +22,7 @@ function Chat() {
   const {roomId} = useParams();
   const [roomName, setroomName] = useState("");
   const [messages, setmessages] = useState([]);
+  const [{user},dispatch] = useStateValue();
 
   useEffect(() => {
     if(roomId){
@@ -46,9 +49,14 @@ function Chat() {
     e.preventDefault();
     console.log("You typed >> ",input);
 
+    db.collection("rooms").doc(roomId).collection('messages').add({
+      msg:input,
+      name:user.displayName,
+      timestamp:firebase.firestore.FieldValue.serverTimestamp(),
+    })
     setinput("")
   };
-
+ 
   return (
     <div className="chat">
       <div className="chat_header">
@@ -57,7 +65,11 @@ function Chat() {
         />
         <div className="chat_headerInfo">
           <h4>{roomName}</h4>
-          <p>Last Seen at ...</p>
+          <p>Last Seen {
+            new Date(
+              messages[messages.length - 1]?.
+              timestamp?.toDate()
+            ).toUTCString()}</p>
         </div>
         <div className="chat_headerRight">
           <IconButton>
@@ -73,7 +85,8 @@ function Chat() {
       </div>
       <div className="chat_body">
         {messages.map((message) =>(
-          <p className={`chat_message ${true && "chat_reciever"}`}>
+          <p 
+          className={`chat_message ${message.name === user.displayName && "chat_reciever"}`}>
           <span className="chat_name">{message.name}</span>
           {message.msg}
           <span className="chat_timestamp">

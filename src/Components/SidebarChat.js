@@ -3,10 +3,29 @@ import React, { useState ,useEffect } from 'react';
 import "../SidebarChat.css"
 import db from "../firebase"
 import { Link } from 'react-router-dom';
+import { snapshotEqual } from 'firebase/firestore';
 
 function SidebarChat({id,name,addNewChat}) {
 
   const [Seed,setSeed] = useState("");
+  const [messages, setmessages] = useState("");
+
+  useEffect(() => {
+    if(id) {
+      db.collection("rooms")
+      .doc(id)
+      .collection("messages")
+      .orderBy("timestamp","desc")
+      .onSnapshot(snapshot => 
+        setmessages(snapshot.docs.map((doc) =>
+        doc.data()
+        ))
+      );
+    }
+  
+  
+  }, [id]);
+  
   
   useEffect(() => {
   setSeed(Math.floor(
@@ -32,7 +51,7 @@ function SidebarChat({id,name,addNewChat}) {
     <Avatar src={`https://avatars.dicebear.com/api/avataaars/${Seed}.svg`}/>
     <div className="sbChat_info">
       <h4>{name}</h4>
-      <p>Last Message...</p>
+      <p>{messages[0]?.message}</p>
     </div>
 
   </div>

@@ -37,12 +37,14 @@ background-position: center;
 padding: 30px;
 overflow: scroll;
 overflow: hidden;
+
 }
 
 .chat_message{
     position: relative;
     font-size: 16px;
     padding: 10px;
+    margin: 25px;
     background-color: white;
     width: fit-content;
     border-radius: 10px;
@@ -51,14 +53,14 @@ overflow: hidden;
 .chat_reciever{
     margin-left: auto;
     background-color: #dcf8c6;
-    
+
 }
 .chat_name{
    position: absolute;
    top: -15px;
    font-weight: 800;
    font-size: x-small;
-     
+
 }
 .chat_timestamp{
     margin-left: 10px;
