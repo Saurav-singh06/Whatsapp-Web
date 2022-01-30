@@ -13,10 +13,11 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { collection, addDoc } from "firebase/firestore";
-
+import { useStateValue } from "../StateProvider";
 
 function Sidebar() {
   const [rooms, setrooms] = useState([]);
+  const [{user}, dispatch] = useStateValue();
 
     useEffect(() => {
       const db = firebase.firestore();
@@ -38,7 +39,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar_header">
-        <Avatar />
+        <Avatar src={user?.photoURL} />
         <div className="sb_headerRight">
           <IconButton>
             <DonutLarge />

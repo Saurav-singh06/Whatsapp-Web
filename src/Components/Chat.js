@@ -8,6 +8,7 @@ import {
   Send,
 } from "@mui/icons-material";
 import { Avatar, IconButton } from "@mui/material";
+import { doc } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import "../Chat.css";
@@ -18,13 +19,20 @@ function Chat() {
   const [input, setinput] = useState("");
   const {roomId} = useParams();
   const [roomName, setroomName] = useState("");
+  const [messages, setmessages] = useState([]);
 
   useEffect(() => {
     if(roomId){
       db.collection("rooms").doc(roomId).
       onSnapshot(snapshot => (
         setroomName(snapshot.data().name)
-      ))
+      ));
+      db.collection("rooms").doc(roomId).
+      collection("messages").orderBy('timestamp','asc').onSnapshot((snapshot) =>
+      
+          setmessages(snapshot.docs.map((doc) =>
+            doc.data()))
+        );
     }
   }, [roomId]);
   
@@ -64,11 +72,16 @@ function Chat() {
         </div>
       </div>
       <div className="chat_body">
-        <p className={`chat_message ${true && "chat_reciever"}`}>
-          <span className="chat_name">saurav</span>
-          Hey Guys
-          <span className="chat_timestamp">3:54pm</span>
+        {messages.map((message) =>(
+          <p className={`chat_message ${true && "chat_reciever"}`}>
+          <span className="chat_name">{message.name}</span>
+          {message.msg}
+          <span className="chat_timestamp">
+            {new Date(message.timestamp?.toDate()).toUTCString()}
+          </span>
         </p>
+        ))}
+        
       </div>
       <div className="chat_footer">
         <IconButton>
